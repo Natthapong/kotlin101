@@ -1,2 +1,2 @@
 DELETE FROM PRODUCT;
-INSERT INTO  PRODUCT (id, name, price) VALUES (100001, 'product one', 2000.00);
+INSERT INTO  PRODUCT (name, price) VALUES ('product one', 2000.00);
