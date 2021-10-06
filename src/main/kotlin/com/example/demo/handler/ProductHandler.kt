@@ -4,7 +4,6 @@ import com.example.demo.exception.ProductNotFoundException
 import com.example.demo.message.ProductError
 import com.example.demo.message.ProductResult
 import com.example.demo.model.Product
-import com.example.demo.repository.Product2Repository
 import com.example.demo.repository.ProductRepository
 import kotlinx.coroutines.FlowPreview
 import org.springframework.stereotype.Component
@@ -31,8 +30,6 @@ class ProductHandler(
             badRequest().bodyValueAndAwait(ProductError(description = e.message!!))
         }
     }
-
-
 
     private fun buildResponse(product: Product): Any {
         return ProductResult(product.id, product.name, product.price)

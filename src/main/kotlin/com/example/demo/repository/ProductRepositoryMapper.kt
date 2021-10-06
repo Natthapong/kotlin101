@@ -1,4 +1,4 @@
-package com.example.demo.mapper
+package com.example.demo.repository
 
 import com.example.demo.model.Product
 import io.r2dbc.spi.Row
