@@ -18,6 +18,8 @@ class RouterConfiguration {
             GET("/{id}", productHandler::findOne)
             POST("", productHandler::createProduct)
             PUT("", productHandler::updateProduct)
+            DELETE("/{id}", productHandler::deleteProduct)
+            DELETE("", productHandler::deleteProducts)
         }
     }
 
