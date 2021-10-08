@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.server.ServerWebExchange
 
-class ProductNotFoundException(id: Long) : RuntimeException("Product:$id is not found...")
+class ProductNotFoundException(id: Long) : RuntimeException("Product:$id is not found.")
+class BadRequestException(msg: String) : RuntimeException(msg)
 
 @RestControllerAdvice
 class RestWebExceptionHandler {

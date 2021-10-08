@@ -1,4 +1,8 @@
 #application.yml
+management:
+  endpoints:
+    web.exposure.include: health,metrics
+
 spring:
   r2dbc:
     url: r2dbc:postgresql://localhost/demo

@@ -10,15 +10,16 @@ import org.springframework.data.repository.kotlin.CoroutineSortingRepository
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.r2dbc.core.flow
 import org.springframework.stereotype.Repository
+import java.math.BigDecimal
 
 @Repository
 interface ProductRepository : CoroutineSortingRepository<Product, Long>, CustomProductRepository
 
 interface CustomProductRepository {
     @FlowPreview
-    fun findByProductName(): Flow<Product>
+    fun findByProductName(name: String): Flow<ProductDto>
     @FlowPreview
-    fun findByProductPrice(): Flow<Product>
+    fun findByProductPrice(price: BigDecimal): Flow<ProductDto>
     @FlowPreview
     fun findProducts(): Flow<ProductDto>
 }
@@ -33,17 +34,20 @@ class CustomProductRepositoryImpl (private val client: DatabaseClient,
         client.sql("SELECT * FROM PRODUCT ORDER BY NAME")
             .map(mapper::apply)
             .flow()
-            .catch { e-> println(e.message) }
+            .catch { e -> println(e.message) }
 
     @FlowPreview
-    override fun findByProductName(): Flow<Product> {
-        TODO("Not yet implemented")
-    }
+    override fun findByProductName(name: String): Flow<ProductDto> =
+        client.sql("SELECT * FROM PRODUCT WHERE NAME LIKE '%$name%' ORDER BY NAME")
+            .map(mapper::apply)
+            .flow()
+            .catch { e -> println(e.message) }
 
     @FlowPreview
-    override fun findByProductPrice(): Flow<Product> {
-        TODO("Not yet implemented")
-    }
-
+    override fun findByProductPrice(price: BigDecimal): Flow<ProductDto> =
+        client.sql("SELECT * FROM PRODUCT WHERE PRICE = $1 ORDER BY NAME")
+            .bind(0, price)
+            .map(mapper::apply)
+            .flow()
+            .catch { e -> println(e.message) }
 }
-

@@ -16,6 +16,8 @@ class RouterConfiguration {
         (accept(APPLICATION_JSON) and ("/v1/product")).nest {
             GET("", productHandler::findAll)
             GET("/{id}", productHandler::findOne)
+            GET("/name/{name}", productHandler::findByName)
+            GET("/price/{price}", productHandler::findByPrice)
             POST("", productHandler::createProduct)
             PUT("", productHandler::updateProduct)
             DELETE("/{id}", productHandler::deleteProduct)
